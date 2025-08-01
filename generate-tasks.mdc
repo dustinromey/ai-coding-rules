@@ -1,0 +1,90 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+---
+description:
+globs:
+alwaysApply: false
+---
+# Rule: Generating a Task List from a PRD
+
+**Note:** This file defines task generation specifics. For the complete development workflow including memory bank integration and task execution, see `unified-dev-process.mdc`.
+
+## Goal
+
+To guide an AI assistant in creating a detailed, step-by-step task list in Markdown format based on an existing Product Requirements Document (PRD). The task list integrates with the unified development process and memory bank system.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/tasks/`
+- **Filename:** `tasks-[prd-file-name].md` (e.g., `tasks-prd-user-profile-editing.md`)
+
+## Integration with Unified Process
+
+Task generation is Phase 2 of the unified development process, occurring after memory bank initialization. The process includes:
+
+### Prerequisites
+- PRD exists and is accessible
+- Memory bank is initialized (create core files if missing)
+- Project intelligence (`.gemini/rules`) reviewed for patterns
+
+### Two-Phase Generation (as defined in unified process)
+
+**Phase 1: High-Level Tasks**
+1. Analyze PRD functional requirements and user stories
+2. Generate 3-7 main implementation tasks
+3. Present to user: *"Ready to generate sub-tasks? Respond with 'Go' to proceed."*
+4. Wait for "Go" confirmation
+
+**Phase 2: Detailed Sub-Tasks**
+1. Break down each parent task into actionable sub-tasks
+2. Apply learned patterns from `.gemini/rules`
+3. Identify all files to be created/modified (include tests)
+4. Save as `tasks/tasks-[prd-name].md`
+5. Update memory bank with task creation
+
+## Output Format
+
+The generated task list _must_ follow this structure:
+
+```markdown
+## Relevant Files
+
+- `path/to/potential/file1.ts` - Brief description of why this file is relevant (e.g., Contains the main component for this feature).
+- `path/to/file1.test.ts` - Unit tests for `file1.ts`.
+- `path/to/another/file.tsx` - Brief description (e.g., API route handler for data submission).
+- `path/to/another/file.test.tsx` - Unit tests for `another/file.tsx`.
+- `lib/utils/helpers.ts` - Brief description (e.g., Utility functions needed for calculations).
+- `lib/utils/helpers.test.ts` - Unit tests for `helpers.ts`.
+
+### Notes
+
+- Unit tests should typically be placed alongside the code files they are testing (e.g., `MyComponent.tsx` and `MyComponent.test.tsx` in the same directory).
+- Use `npx jest [optional/path/to/test/file]` to run tests. Running without a path executes all tests found by the Jest configuration.
+
+## Tasks
+
+- [ ] 1.0 Parent Task Title
+  - [ ] 1.1 [Sub-task description 1.1]
+  - [ ] 1.2 [Sub-task description 1.2]
+- [ ] 2.0 Parent Task Title
+  - [ ] 2.1 [Sub-task description 2.1]
+- [ ] 3.0 Parent Task Title (may not require sub-tasks if purely structural or configuration)
+```
+
+## Interaction Model
+
+Integrated with unified process execution protocol:
+- **Phase Separation:** Explicit pause after parent tasks for user confirmation ("Go")
+- **User Alignment:** Ensures high-level plan matches expectations before details
+- **Memory Integration:** Task generation updates `activeContext.md` and `progress.md`
+- **Execution Handoff:** Generated tasks follow one-sub-task-at-a-time execution protocol
+
+See `unified-dev-process.mdc` for complete interaction workflows.
+
+## Target Audience
+
+Assume the primary reader of the task list is a **junior developer** who will implement the feature.

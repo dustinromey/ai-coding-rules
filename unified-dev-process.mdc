@@ -1,0 +1,210 @@
+---
+description: Unified software development process combining memory bank maintenance, task generation, and execution
+globs:
+alwaysApply: true
+---
+
+# Unified Software Development Process
+
+A comprehensive workflow for maintaining project documentation and executing development tasks efficiently.
+
+## Process Overview
+
+```mermaid
+flowchart TD
+    Start[New Session/Task] --> ReadMemory[Read Memory Bank]
+    ReadMemory --> CheckPRD{PRD Available?}
+
+    CheckPRD -->|No| CreatePRD[Create PRD]
+    CreatePRD --> InitMemory[Initialize Memory Bank]
+
+    CheckPRD -->|Yes| CheckMemory{Memory Bank Complete?}
+    CheckMemory -->|No| InitMemory
+    CheckMemory -->|Yes| CheckTasks{Task List Exists?}
+
+    InitMemory --> GenerateTasks[Generate Task List]
+    CheckTasks -->|No| GenerateTasks
+    CheckTasks -->|Yes| ExecuteTasks[Execute Next Task]
+
+    GenerateTasks --> ExecuteTasks
+    ExecuteTasks --> UpdateDocs[Update Documentation]
+    UpdateDocs --> Complete{All Tasks Done?}
+
+    Complete -->|No| ExecuteTasks
+    Complete -->|Yes| FinalUpdate[Final Memory Bank Update]
+```
+
+## 1. Memory Bank Foundation
+
+### Core Files Structure
+The Memory Bank maintains project intelligence across sessions:
+
+**Required Core Files:**
+- `memory-bank/projectbrief.md` - Foundation document, project scope
+- `memory-bank/productContext.md` - Why this exists, problems solved
+- `memory-bank/activeContext.md` - Current focus, recent changes, next steps
+- `memory-bank/systemPatterns.md` - Architecture, design patterns
+- `memory-bank/techContext.md` - Technologies, setup, constraints
+- `memory-bank/progress.md` - Status, what works, what's left
+
+**Task Integration:**
+- `tasks/tasks-[feature-name].md` - Generated from PRDs
+- `.gemini/rules` - Project intelligence and patterns
+
+### Session Initialization
+At the start of EVERY session:
+1. Read ALL memory bank files
+2. Check for incomplete tasks
+3. Verify context is current
+4. Update `.gemini/rules` with new insights
+
+## 2. PRD to Task Generation
+
+### Prerequisites
+- PRD exists and is accessible
+- Memory bank is initialized (create if missing)
+
+### Two-Phase Generation Process
+
+#### Phase 1: High-Level Tasks
+1. **Analyze PRD:** Read functional requirements, user stories
+2. **Generate Parent Tasks:** Create 3-7 high-level implementation tasks
+3. **Present to User:** Show parent tasks and ask: *"Ready to generate sub-tasks? Respond with 'Go' to proceed."*
+4. **Wait for Confirmation**
+
+#### Phase 2: Detailed Sub-Tasks
+1. **Break Down Tasks:** Create actionable sub-tasks for each parent
+2. **Identify Files:** List all files to be created/modified
+3. **Generate Task List:** Save as `tasks/tasks-[prd-name].md`
+
+### Task File Format
+```markdown
+# Tasks: [Feature Name]
+
+## Relevant Files
+- `path/to/file.ts` - Description of purpose
+- `path/to/file.test.ts` - Unit tests for file.ts
+- `path/to/component.tsx` - Component description
+- `path/to/component.test.tsx` - Component tests
+
+### Notes
+- Test files should be co-located with source files
+- Use `npx jest [path]` to run tests
+- Update memory bank after significant changes
+
+## Tasks
+- [ ] 1.0 Parent Task Title
+  - [ ] 1.1 Sub-task description
+  - [ ] 1.2 Sub-task description
+- [ ] 2.0 Parent Task Title
+  - [ ] 2.1 Sub-task description
+```
+
+## 3. Task Execution Protocol
+
+### Execution Rules
+- **One sub-task at a time** - Never start the next until current is complete
+- **Stop and ask** - After each sub-task, ask user: *"Sub-task complete. Continue to next? (y/n)"*
+- **Wait for permission** - Only proceed on "yes", "y", or "go"
+
+### Completion Protocol
+1. **Mark Sub-task Complete:** Change `[ ]` to `[x]`
+2. **Check Parent Task:** If ALL sub-tasks are `[x]`, mark parent as `[x]`
+3. **Update Relevant Files:** Add/modify file descriptions as needed
+4. **Update Memory Bank:** Reflect changes in appropriate files
+
+### Documentation Updates During Execution
+Update these files as work progresses:
+- **activeContext.md** - Current focus, recent changes
+- **progress.md** - What's working, current status
+- **systemPatterns.md** - New patterns discovered
+- **.gemini/rules** - Project intelligence gained
+
+## 4. Memory Bank Maintenance
+
+### Automatic Updates
+Memory Bank updates occur:
+- After completing any parent task
+- When discovering new project patterns
+- After significant architectural changes
+- When user requests **"update memory bank"**
+
+### Update Process
+```mermaid
+flowchart TD
+    Trigger[Update Triggered] --> ReviewAll[Review ALL Memory Bank Files]
+    ReviewAll --> UpdateCurrent[Update Current State]
+    UpdateCurrent --> ClarifyNext[Clarify Next Steps]
+    ClarifyNext --> UpdateRules[Update .gemini/rules]
+    UpdateRules --> Validate[Validate Consistency]
+```
+
+### Special: "Update Memory Bank" Command
+When user says **"update memory bank"**:
+1. **MUST review EVERY memory bank file** (even if no changes needed)
+2. Focus on `activeContext.md` and `progress.md` for current state
+3. Update `.gemini/rules` with new project intelligence
+4. Ensure all files reflect current reality
+
+## 5. Project Intelligence (.gemini/rules)
+
+### Purpose
+Learning journal capturing:
+- Critical implementation paths
+- User preferences and workflow patterns
+- Project-specific patterns and conventions
+- Known challenges and solutions
+- Tool usage patterns
+
+### Integration Points
+- **Task Generation:** Apply learned patterns to task breakdown
+- **Task Execution:** Use patterns to guide implementation
+- **Memory Updates:** Document new patterns discovered
+- **Session Start:** Review patterns for context
+
+## 6. Quality Checkpoints
+
+### Before Starting Work
+- [ ] Memory bank read and current
+- [ ] Task list exists and next sub-task identified
+- [ ] Context understood and documented
+
+### After Each Sub-Task
+- [ ] Sub-task marked complete
+- [ ] Parent task updated if all sub-tasks complete
+- [ ] Relevant files section updated
+- [ ] User permission obtained for next task
+
+### After Significant Changes
+- [ ] Memory bank files updated to reflect new reality
+- [ ] .gemini/rules updated with new patterns
+- [ ] Progress.md reflects current status
+- [ ] ActiveContext.md shows current focus
+
+## 7. File Organization
+
+```
+project/
+├── memory-bank/
+│   ├── projectbrief.md
+│   ├── productContext.md
+│   ├── activeContext.md
+│   ├── systemPatterns.md
+│   ├── techContext.md
+│   └── progress.md
+├── tasks/
+│   └── tasks-[feature-name].md
+├── .gemini/
+│   └── rules
+└── [project files...]
+```
+
+## Key Principles
+
+1. **Memory-First:** Always start by reading memory bank
+2. **One Task at a Time:** Never rush ahead without permission
+3. **Document as You Go:** Keep memory bank current
+4. **Learn and Apply:** Capture patterns in .gemini/rules
+5. **User Collaboration:** Always confirm before proceeding
+
+This unified process ensures consistent documentation, controlled task execution, and continuous learning while eliminating redundant steps between the original three processes.
