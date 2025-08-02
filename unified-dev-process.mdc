@@ -95,13 +95,14 @@ At the start of EVERY session:
 - **Wait for permission** - Only proceed on "yes", "y", or "go"
 
 ### Completion Protocol
-1. **Mark Sub-task Complete:** Change `[ ]` to `[x]`
-2. **Check Parent Task:** If ALL sub-tasks are `[x]`, mark parent as `[x]`
-3. **Update Relevant Files:** Add/modify file descriptions as needed
-4. **Update Memory Bank:** Reflect changes in appropriate files
+1. **Mark Sub-task Complete:** Change `[ ]` to `[x]` in the task list file.
+2. **Update Memory Bank:** Immediately update `memory-bank/activeContext.md` and `memory-bank/progress.md` to reflect the completed work and the current state of the project.
+3. **Check Parent Task:** If ALL sub-tasks for a parent task are marked `[x]`, mark the parent task as complete `[x]` as well.
+4. **Update Relevant Files:** Add or modify file descriptions in the task list as needed to keep it current.
+5. **Commit Changes:** Commit the code changes along with the updates to the task list and memory bank.
 
-### Documentation Updates During Execution
-Update these files as work progresses:
+### Documentation Updates After Each Sub-Task
+After each sub-task is completed, update these files as part of the Completion Protocol:
 - **activeContext.md** - Current focus, recent changes
 - **progress.md** - What's working, current status
 - **systemPatterns.md** - New patterns discovered
