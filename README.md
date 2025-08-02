@@ -1,98 +1,77 @@
-<<<<<<< HEAD
 # AI Coding Rules
 
-A centralized set of coding rules and instructions for AI assistants (Claude Code, Gemini CLI, Cursor, Zed) that ensures consistent behavior across projects.
+A centralized set of coding rules and instructions for AI assistants that ensures consistent, high-quality behavior across projects.
+
+This project provides a framework for guiding AI assistants like Claude Code, Gemini CLI, and others to follow a structured, predictable, and safe development process.
+
+## Core Concepts
+
+The rules are built on two fundamental concepts:
+
+1.  **Plan/Act Mode**: To prevent unintended changes, the AI operates in two distinct modes. It starts in **Plan Mode**, where it analyzes the request, gathers information, and proposes a detailed plan. It will not make any changes to the codebase in this mode. Only after the user approves the plan does the AI switch to **Act Mode** to execute the plan.
+
+2.  **The Memory Bank**: AI assistants are often stateless, meaning they have no memory of past interactions. The Memory Bank is a structured set of markdown files that serves as the AI's long-term memory. It contains the project brief, technical context, and progress logs. The AI is required to read the Memory Bank at the beginning of each session, ensuring it has the context it needs to work effectively.
 
 ## Features
 
-- **Unified Rules**: Single source of truth for all AI coding assistants
-- **Multi-Tool Support**: Works with Claude Code, Gemini CLI, Cursor, and Zed
-- **Easy Setup**: One-command initialization for new projects
-- **Global + Local**: Support for both global user settings and per-project rules
+- **Unified Rules**: A single source of truth for all AI coding assistants.
+- **Multi-Tool Support**: Works with Claude Code, Gemini CLI, Cursor, and Zed.
+- **Easy Setup**: A single command to initialize the rules in a new project.
+- **Global & Local**: Supports both global user settings and per-project rules.
+
+## File Structure
+
+The project is organized as follows:
+
+```
+├── core.mdc                 # Core behavioral rules (Plan/Act mode)
+├── memory-bank.mdc          # The memory management process
+├── unified-dev-process.mdc  # The development workflow
+├── generate-tasks.mdc       # Task generation rules
+├── init-project.sh          # Project initialization script
+├── sync-rules.sh            # Global rules sync script
+└── README.md                # This file
+```
 
 ## Quick Start
 
 ### For New Projects
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/ai-coding-rules.git
-   cd ai-coding-rules
-   ```
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/ai-coding-rules.git
+    cd ai-coding-rules
+    ```
 
-2. Initialize rules in your project:
-   ```bash
-   ./init-project.sh /path/to/your/project
-   ```
+2.  **Initialize the rules in your project:**
+    ```bash
+    ./init-project.sh /path/to/your/project
+    ```
 
 ### For Global Setup
 
-Run the sync script to set up global rules:
+To set up the rules globally for all your projects, run the sync script:
+
 ```bash
 ./sync-rules.sh
 ```
 
-This creates:
-- `~/.claude/` - Claude Code global rules (symlinked)
-- `~/.config/gemini/` - Gemini CLI rules (converted .md files)
-- `~/.config/zed/` - Zed editor rules (converted markdown)
-
-## File Structure
-
-```
-├── core.mdc                 # Core behavioral rules
-├── memory-bank.mdc         # Memory management process
-├── unified-dev-process.mdc # Development workflow
-├── generate-tasks.mdc      # Task generation rules
-├── init-project.sh         # Project initialization script
-├── sync-rules.sh          # Global rules sync script
-└── README.md              # This file
-```
-
-## Rules Overview
-
-- **Plan/Act Mode**: AI operates in plan mode by default, requires approval before making changes
-- **Memory Management**: Structured approach to maintaining context between sessions
-- **Unified Development**: Consistent workflow across different AI tools
-- **Task Generation**: Systematic approach to breaking down complex work
+This will create symlinks and copies of the rules in the appropriate directories for each tool.
 
 ## Tool-Specific Notes
 
-### Claude Code
-- Uses `.mdc` files with frontmatter
-- Supports global rules via `~/.claude/`
-- Local project rules via `.claude/` directory
-
-### Gemini CLI
-- Requires `.md` files (frontmatter stripped)
-- Looks for specific filenames like `memory-bank-process.md`
-- Local project rules via `.gemini/` directory
-
-### Cursor
-- Uses `.mdc` files with frontmatter
-- Local project rules via `.cursor/` directory
-
-### Zed
-- Uses converted markdown files
-- Rules placed in `~/.config/zed/coding-rules.md`
-
-## Usage
-
-After setup, your AI assistants will automatically follow the defined rules. Key behaviors:
-
-1. **Start in PLAN mode** - AI will plan before acting
-2. **Follow memory bank process** - Maintain structured documentation
-3. **Use unified development workflow** - Consistent approach across tools
+-   **Claude Code**: Uses `.mdc` files with frontmatter. Supports global rules in `~/.claude/` and local rules in `.claude/`.
+-   **Gemini CLI**: Requires `.md` files (frontmatter is stripped). Looks for specific filenames like `memory-bank-process.md`. Local rules are in `.gemini/`.
+-   **Cursor**: Uses `.mdc` files with frontmatter. Local rules are in `.cursor/`.
+-   **Zed**: Uses converted markdown files. Rules are placed in `~/.config/zed/coding-rules.md`.
 
 ## Customization
 
-Edit the `.mdc` files to customize rules, then run:
-- `./sync-rules.sh` - Update global rules
-- `./init-project.sh` - Update project rules
+To customize the rules, edit the `.mdc` files and then run the appropriate script:
+
+-   `./sync-rules.sh` to update the global rules.
+-   `./init-project.sh` to update the rules in a specific project.
 
 ## License
 
-MIT License - feel free to adapt for your needs.
-=======
-# ai-coding-rules
->>>>>>> 7ddfbbb24dccfe3d3409d5d0a6043d3e55831edc
+MIT License
