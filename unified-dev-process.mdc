@@ -36,27 +36,14 @@ flowchart TD
 
 ## 1. Memory Bank Foundation
 
-### Core Files Structure
-The Memory Bank maintains project intelligence across sessions:
-
-**Required Core Files:**
-- `memory-bank/projectbrief.md` - Foundation document, project scope
-- `memory-bank/productContext.md` - Why this exists, problems solved
-- `memory-bank/activeContext.md` - Current focus, recent changes, next steps
-- `memory-bank/systemPatterns.md` - Architecture, design patterns
-- `memory-bank/techContext.md` - Technologies, setup, constraints
-- `memory-bank/progress.md` - Status, what works, what's left
-
-**Task Integration:**
-- `tasks/tasks-[feature-name].md` - Generated from PRDs
-- `.gemini/rules` - Project intelligence and patterns
+The Memory Bank is the single source of truth for project knowledge. It is defined in `memory-bank.mdc` and is essential for maintaining context across sessions.
 
 ### Session Initialization
 At the start of EVERY session:
-1. Read ALL memory bank files
-2. Check for incomplete tasks
-3. Verify context is current
-4. Update `.gemini/rules` with new insights
+1. Read ALL memory bank files as defined in `memory-bank.mdc`.
+2. Check for incomplete tasks.
+3. Verify context is current.
+4. Update `.gemini/rules` with new insights.
 
 ## 2. PRD to Task Generation
 
