@@ -28,16 +28,29 @@ fi
 # Create symlinks for Claude Code
 ln -sf "$RULES_DIR"/*.mdc "$CLAUDE_DIR/"
 
-# Create .md versions for Gemini CLI (strip frontmatter)
+# Create unified GEMINI.md file for Gemini CLI
+{
+    echo "# AI Coding Rules for Gemini CLI"
+    echo ""
+    echo "This file contains all AI coding rules combined for Gemini CLI compatibility."
+    echo ""
+    
+    for file in "$RULES_DIR"/*.mdc; do
+        basename=$(basename "$file" .mdc)
+        echo "## $(echo $basename | sed 's/-/ /g' | sed 's/\b\w/\U&/g')"
+        echo ""
+        strip_frontmatter "$file"
+        echo ""
+        echo "---"
+        echo ""
+    done
+} > "$GEMINI_DIR/GEMINI.md"
+
+# Also create individual .md files for reference
 for file in "$RULES_DIR"/*.mdc; do
     basename=$(basename "$file" .mdc)
     strip_frontmatter "$file" > "$GEMINI_DIR/$basename.md"
 done
-
-# Create specific named files that Gemini expects
-if [ -f "$RULES_DIR/memory-bank.mdc" ]; then
-    strip_frontmatter "$RULES_DIR/memory-bank.mdc" > "$GEMINI_DIR/memory-bank-process.md"
-fi
 
 # Convert core.mdc to markdown for Zed (manual sync required for complex rules)
 if [ -f "$RULES_DIR/core.mdc" ]; then
@@ -51,5 +64,5 @@ fi
 echo "✅ Rules synced successfully!"
 echo "📁 Master rules: $RULES_DIR"
 echo "🔗 Claude Code: $CLAUDE_DIR (symlinked)"
-echo "📄 Gemini CLI: $GEMINI_DIR (converted .md files)"
+echo "📄 Gemini CLI: $GEMINI_DIR/GEMINI.md (unified context file)"
 echo "📄 Zed: $ZED_DIR/coding-rules.md (converted)"

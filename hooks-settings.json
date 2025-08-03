@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PreToolUse": {
+      "*": "./hooks/check-session-start.sh",
+      "Write": "./hooks/check-plan-mode.sh",
+      "Edit": "./hooks/check-plan-mode.sh",
+      "MultiEdit": "./hooks/check-plan-mode.sh",
+      "Bash": "./hooks/check-project-sync.sh"
+    },
+    "PostToolUse": {
+      "Edit": "./hooks/remind-memory-update.sh",
+      "MultiEdit": "./hooks/remind-memory-update.sh", 
+      "Write": "./hooks/remind-memory-update.sh",
+      "Bash": "./hooks/check-task-completion.sh"
+    }
+  }
+}
