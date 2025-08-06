@@ -3,25 +3,25 @@
     "PreToolUse": [
       {
         "matcher": {"tools": ["*"]},
-        "hooks": [{"type": "command", "command": "./hooks/check-session-start.sh"}]
+        "hooks": [{"type": "command", "command": "./.claude/hooks/check-session-start.sh"}]
       },
       {
         "matcher": {"tools": ["Write", "Edit", "MultiEdit"]},
-        "hooks": [{"type": "command", "command": "./hooks/check-plan-mode.sh"}]
+        "hooks": [{"type": "command", "command": "./.claude/hooks/check-plan-mode.sh"}]
       },
       {
         "matcher": {"tools": ["Bash"]},
-        "hooks": [{"type": "command", "command": "./hooks/check-project-sync.sh"}]
+        "hooks": [{"type": "command", "command": "./.claude/hooks/check-project-sync.sh"}]
       }
     ],
     "PostToolUse": [
       {
         "matcher": {"tools": ["Edit", "MultiEdit", "Write"]},
-        "hooks": [{"type": "command", "command": "./hooks/remind-memory-update.sh"}]
+        "hooks": [{"type": "command", "command": "./.claude/hooks/remind-memory-update.sh"}]
       },
       {
         "matcher": {"tools": ["Bash"]},
-        "hooks": [{"type": "command", "command": "./hooks/check-task-completion.sh"}]
+        "hooks": [{"type": "command", "command": "./.claude/hooks/check-task-completion.sh"}]
       }
     ]
   }

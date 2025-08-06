@@ -41,6 +41,20 @@ The project is organized as follows:
 └── README.md                # This file
 ```
 
+**After running `./init-project.sh`, the project structure becomes:**
+```
+project/
+├── .claude/
+│   ├── settings.json        # Hooks configuration
+│   ├── hooks/              # Hook scripts (executable)
+│   └── *.mdc               # Rule files
+├── .gemini/
+│   └── GEMINI.md           # Unified context file
+├── .cursor/
+│   └── *.mdc               # Rule files
+└── [your project files...]
+```
+
 ## Quick Start
 
 ### For New Projects
@@ -99,7 +113,7 @@ The system includes automated hooks that enforce rule compliance in Claude Code:
 ### Setup
 Hooks are automatically configured when running `./init-project.sh`. The setup includes:
 - `hooks-settings.json` copied to `.claude/settings.json`
-- Hook scripts copied to project `hooks/` directory
+- Hook scripts copied to `.claude/hooks/` directory
 - All scripts made executable automatically
 
 ## Customization
@@ -112,7 +126,7 @@ To customize the rules, edit the `.mdc` files and then run the appropriate scrip
 ### Customizing Hooks
 
 To modify hook behavior:
-1. Edit the shell scripts in the `hooks/` directory
+1. Edit the shell scripts in the `.claude/hooks/` directory
 2. Modify `hooks-settings.json` to change which tools trigger hooks
 3. Re-run `./init-project.sh` to apply changes to projects
 

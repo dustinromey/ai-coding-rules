@@ -51,11 +51,10 @@ echo "📋 Setting up Cursor rules..."
 cp "$SCRIPT_DIR"/*.mdc "$PROJECT_DIR/.cursor/"
 
 echo "🪝 Setting up Claude Code hooks..."
-mkdir -p "$PROJECT_DIR/.claude"
+mkdir -p "$PROJECT_DIR/.claude/hooks"
 cp "$SCRIPT_DIR/hooks-settings.json" "$PROJECT_DIR/.claude/settings.json"
-mkdir -p "$PROJECT_DIR/hooks"
-cp -r "$SCRIPT_DIR/hooks/"*.sh "$PROJECT_DIR/hooks/"
-chmod +x "$PROJECT_DIR/hooks/"*.sh
+cp -r "$SCRIPT_DIR/hooks/"*.sh "$PROJECT_DIR/.claude/hooks/"
+chmod +x "$PROJECT_DIR/.claude/hooks/"*.sh
 
 # Create gitignore entries if .gitignore exists
 if [ -f "$PROJECT_DIR/.gitignore" ]; then
@@ -67,7 +66,6 @@ if [ -f "$PROJECT_DIR/.gitignore" ]; then
         echo ".claude/" >> "$PROJECT_DIR/.gitignore"
         echo ".gemini/" >> "$PROJECT_DIR/.gitignore"
         echo ".cursor/" >> "$PROJECT_DIR/.gitignore"
-        echo "hooks/" >> "$PROJECT_DIR/.gitignore"
         echo "✅ Added AI tool rules to .gitignore"
     fi
 fi
@@ -77,7 +75,6 @@ echo "📁 Rules copied to:"
 echo "   - $PROJECT_DIR/.claude/ (Claude Code + hooks)"
 echo "   - $PROJECT_DIR/.gemini/GEMINI.md (Gemini CLI unified context)"
 echo "   - $PROJECT_DIR/.cursor/ (Cursor)"
-echo "   - $PROJECT_DIR/hooks/ (Hook scripts)"
 echo ""
 echo "🪝 Claude Code hooks configured for:"
 echo "   - Memory bank validation"
