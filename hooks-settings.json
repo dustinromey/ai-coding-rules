@@ -1,17 +1,28 @@
 {
   "hooks": {
-    "PreToolUse": {
-      "*": "./hooks/check-session-start.sh",
-      "Write": "./hooks/check-plan-mode.sh",
-      "Edit": "./hooks/check-plan-mode.sh",
-      "MultiEdit": "./hooks/check-plan-mode.sh",
-      "Bash": "./hooks/check-project-sync.sh"
-    },
-    "PostToolUse": {
-      "Edit": "./hooks/remind-memory-update.sh",
-      "MultiEdit": "./hooks/remind-memory-update.sh", 
-      "Write": "./hooks/remind-memory-update.sh",
-      "Bash": "./hooks/check-task-completion.sh"
-    }
+    "PreToolUse": [
+      {
+        "matcher": {"tools": ["*"]},
+        "hooks": [{"type": "command", "command": "./hooks/check-session-start.sh"}]
+      },
+      {
+        "matcher": {"tools": ["Write", "Edit", "MultiEdit"]},
+        "hooks": [{"type": "command", "command": "./hooks/check-plan-mode.sh"}]
+      },
+      {
+        "matcher": {"tools": ["Bash"]},
+        "hooks": [{"type": "command", "command": "./hooks/check-project-sync.sh"}]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": {"tools": ["Edit", "MultiEdit", "Write"]},
+        "hooks": [{"type": "command", "command": "./hooks/remind-memory-update.sh"}]
+      },
+      {
+        "matcher": {"tools": ["Bash"]},
+        "hooks": [{"type": "command", "command": "./hooks/check-task-completion.sh"}]
+      }
+    ]
   }
 }

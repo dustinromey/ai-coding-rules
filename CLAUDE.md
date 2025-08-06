@@ -18,6 +18,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Shell scripts are executable and should be run directly
 - Use `chmod +x *.sh` if scripts need execute permissions
 
+### Hook Management
+```bash
+# Test hook configuration validity
+# Hooks use new array format with matchers as of Claude Code updates
+# Example: {"PreToolUse": [{"matcher": {"tools": ["*"]}, "hooks": [{"type": "command", "command": "script.sh"}]}]}
+```
+
 ## Architecture Overview
 
 This repository implements a centralized AI coding rules framework with two core architectural concepts:
@@ -73,3 +80,13 @@ The repository defines a unified process that integrates:
 - The Supabase project_id 'zpvwoxgaiorjvduuwmzm' is referenced in core rules
 - All AI responses should be terse and direct per core behavioral guidelines
 - Scripts handle frontmatter stripping automatically for tools that don't support it
+- Hook scripts are located in `hooks/` directory and must be executable
+- The `hooks-settings.json` uses the new Claude Code hooks format with matcher arrays
+
+## Troubleshooting
+
+### Hook Configuration Issues
+If you encounter "Expected array, but received object" errors:
+1. Ensure `hooks-settings.json` uses the new format with `matcher` objects
+2. Run `./init-project.sh` to update existing projects with corrected hooks
+3. Verify hook scripts in `hooks/` directory are executable (`chmod +x hooks/*.sh`)
